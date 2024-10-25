@@ -3,11 +3,11 @@ import datetime, re
 class Main():
 
     def __init__(self):
-
-        self.data = {}
         
         self.getPersonalData()
         self.getPhysicalData()
+
+        self.formatData()
 
     def getPersonalData(self):
 
@@ -72,12 +72,38 @@ Which Package are you interested in?
 """)
                 packageChoice = int(input("package: "))
 
-                if packageChoice != 1 or packageChoice != 2:
-                    print("please select either 1 or 2")
-                
+                if packageChoice == 1:
+                    package = "Lifestyle Package"
+                    break
+                elif packageChoice == 2:
+                    package = "Advanced Package"
+                    break
+                else:
+                    print("please select a valid package, either enter 1 or 2")
+
             except:
                 print("please select a valid package, either enter 1 or 2")
 
+        planStart = input("When are you planning to start your plan: ")
+
+        expectations = input("What do you expect from me as a coach: ")
+
+        workingHours = input("what days and hours do you work: ")
+
+        workingBreaks = input("what breaks do you get at work: ")
+        
+        self.personalData = {
+            "name": name,
+            "dateOfBirth": DOB,
+            "email": email,
+            "phone": phoneNum,
+            "longTermGoal": longTermGoal,
+            "package": package,
+            "planStart": planStart,
+            "expectations": expectations,
+            "workingHours": workingHours,
+            "workingBreaks":workingBreaks,
+        }
 
     def getDOB(self):
         while True:
@@ -178,7 +204,15 @@ on a scale of 1 to 5 how active are you per week?
             except:
                 print("please enter a whole number between 1 and 5")
 
-        self.caloryCalculator(weight, height, age, gender, activitylevel)
+        caloriesPerDay = self.caloryCalculator(weight, height, age, gender, activitylevel)
+
+        self.physicalData = {
+            "weight": weight,
+            "height": height,
+            "age": age,
+            "gender": gender,
+            "calories": caloriesPerDay
+        }
 
     #calculates the inital calory requirments
     def caloryCalculator(self, weight, height, age, gender, activity=1):
@@ -211,10 +245,11 @@ on a scale of 1 to 5 how active are you per week?
         print(BMR)
         return BMR
 
+    def formatData(self):
 
+        self.clientData = {
+            "personalData": self.personalData,
+            "physicalData": self.physicalData           
+        }
 
 main = Main()
-
-#print(main.getPhysicalData())
-
-#main.getPersonalData()
